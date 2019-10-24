@@ -18,19 +18,28 @@ $conn = sqlsrv_connect( $serverName, $connectionInfo );
      }
   </style>  
   </head>
-    <body>
-      <h1 id="titulo">
-        Expediente NO:
-      </h1>
     <?php
-
+    
     $id_paciente = $_GET['id_paciente'];
     $id_exp = $_GET['id_exp'];
+    $sql_dos = 'SELECT * FROM expediente where id_paciente='.$id_paciente.'AND id_expediente='.$id_exp;
+    $stmt_dos = sqlsrv_query( $conn, $sql_dos );
+
+    ?>
+
+    <body>
+    <?php 
+    while( $row = sqlsrv_fetch_array( $stmt_dos, SQLSRV_FETCH_ASSOC) ) {
+        //echo var_dump($row);
+        echo "<h1 class=titulo> Expediente:<strong>". $row['fecha_gen']->format('d-m-y'). "-".$row['id_expediente']."</strong></h1>";
+    }
+    ?> 
+    <!--- fin del encabezado -->
+    <?php
+
     $sql = 'SELECT primer_nombre,segundo_nombre,primer_apellido,segundo_apellido,numero_tel,fecha_nacimiento FROM paciente where id_paciente='.$id_paciente;
     $stmt = sqlsrv_query( $conn, $sql );
-      if( $stmt === false) {
-        die( print_r( sqlsrv_errors(), true) );
-      }
+     
     while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ) {
         echo "<p> <strong>Nombre Completo:</strong> ". $row['primer_nombre']." ".$row['segundo_nombre']." ".$row['primer_apellido']." ".$row['segundo_apellido']." <strong> Número de telefono </strong> ".$row['numero_tel']."</p>";
         echo "<hr style=width:100%>";
