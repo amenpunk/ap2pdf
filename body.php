@@ -178,7 +178,48 @@ sqlsrv_free_stmt($stmt);
 
     </table>
  
+    <h2>Signos Vitales</h2>
+    <table border="1" width="auto">
+        <tr class="fuerte">  
+      <td class="fuerte"><strong>ID Consulta</strong></td>
+      <td class="fuerte"><strong>Estatura</strong></td>
+      <td class="fuerte"><strong>Peso</strong></td>
+      <td class="fuerte"><strong>Temperatura</strong></td>
+      <td class="fuerte"><strong>Pulso</strong></td>
+      <td class="fuerte"><strong>Presion Arterial</strong></td>
+      <td class="fuerte"><strong>Frecuencia Cardiaca</strong></td>
+      <td class="fuerte"><strong>Frecuencia Respiratoria</strong></td>
+       </tr>
+<?php
+$consulta = '
+select c.id_consulta, estatura,peso,temp,pulso,presion_art,frec_cardiaca,frec_respiratoria from signos s inner join 
+consulta c ON s.id_consulta = c.id_consulta
+inner join  expediente e ON c.id_expediente = e.id_expediente
+where e.id_expediente ='.$id_exp;
+$stmt = sqlsrv_query( $conn, $consulta );
 
+if( $stmt === false) {
+    die( print_r( sqlsrv_errors(), true) );
+}
+
+while($row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ){
+    echo "<tr>";
+    echo   "<td>".$row['id_consulta']."</td>";
+    echo   "<td>".$row['estatura']."</td>";
+    echo   "<td>".$row['peso']."</td>";
+    echo   "<td>".$row['temp']."</td>";
+    echo   "<td>".$row['pulso']."</td>";
+    echo   "<td>".$row['presion_art']."</td>";
+    echo   "<td>".$row['frec_cardiaca']."</td>";
+    echo   "<td>".$row['frec_respiratoria']."</td>";
+    echo "</tr>";
+}
+
+sqlsrv_free_stmt($stmt); 
+?>
+
+    </table>
+ 
 
     </body>
 </html>
