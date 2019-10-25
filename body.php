@@ -16,6 +16,11 @@ $conn = sqlsrv_connect( $serverName, $connectionInfo );
         color:white;
         height:100%;
      }
+    .fuerte{
+        background:#1e1e1e;
+        color:white;
+    }
+
 
     </style>  
   </head>
@@ -49,7 +54,7 @@ sqlsrv_free_stmt($stmt); ?>
     <h2>Consultas del expediente</h2>
 
     <table border="1" width="auto">
-        <tr> 
+        <tr class="fuerte"> 
       <td><strong>ID Consulta</strong></td>
       <td><strong>Asunto Consulta</strong></td>
       <td><strong>Monto</strong></td>
@@ -76,12 +81,12 @@ while($row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ){
 sqlsrv_free_stmt($stmt); 
 ?>
 
-    <tr width="1000px"><th>Total: <?= $cont ?></th></tr>
+    <tr width="1000px"><th><strong style="color:red">Total:</strong> <?= $cont ?></th></tr>
     </table>
     
     <h2>Ordenes de laboratorio</h2>
     <table border="1" width="auto">
-        <tr> 
+        <tr class="fuerte"> 
       <td><strong>ID Consulta</strong></td>
       <td><strong>Nombre Examen</strong></td>
        </tr>
@@ -111,7 +116,7 @@ sqlsrv_free_stmt($stmt);
     
     <h2>Diagnostico</h2>
     <table border="1" width="auto">
-        <tr> 
+        <tr class="fuerte"> 
       <td><strong>ID Consulta</strong></td>
       <td><strong>Diagnostico</strong></td>
        </tr>
@@ -137,8 +142,42 @@ sqlsrv_free_stmt($stmt);
 ?>
 
     </table>
+    <h2>Recetas Médicas</h2>
+    <table border="1" width="auto">
+        <tr class="fuerte">  
+      <td class="fuerte"><strong>ID Consulta</strong></td>
+      <td class="fuerte"><strong>ID Receta</strong></td>
+      <td class="fuerte"><strong>Medicamento</strong></td>
+      <td class="fuerte"><strong>Cantidad</strong></td>
+      <td class="fuerte"><strong>Dosis</strong></td>
+       </tr>
+<?php
+$consulta = 'select c.id_consulta ,r.id_receta,d.medicamento,d.cantidad,d.dosis from des_receta d inner join receta r
+    on d.id_receta = r.id_receta inner join consulta c 
+    ON r.id_consulta = c.id_consulta inner join 
+    expediente e ON c.id_expediente = e.id_expediente 
+    where  e.id_expediente ='.$id_exp;
+$stmt = sqlsrv_query( $conn, $consulta );
 
+if( $stmt === false) {
+    die( print_r( sqlsrv_errors(), true) );
+}
 
+while($row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ){
+    echo "<tr>";
+    echo   "<td>".$row['id_consulta']."</td>";
+    echo   "<td>".$row['id_receta']."</td>";
+    echo   "<td>".$row['medicamento']."</td>";
+    echo   "<td>".$row['cantidad']."</td>";
+    echo   "<td>".$row['dosis']."</td>";
+    echo "</tr>";
+}
+
+sqlsrv_free_stmt($stmt); 
+?>
+
+    </table>
+ 
 
 
     </body>
