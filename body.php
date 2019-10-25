@@ -50,7 +50,7 @@ sqlsrv_free_stmt($stmt); ?>
 
     <table border="1" width="auto">
         <tr> 
-      <td><strong>Id</strong></td>
+      <td><strong>ID Consulta</strong></td>
       <td><strong>Asunto Consulta</strong></td>
       <td><strong>Monto</strong></td>
        </tr>
@@ -58,6 +58,7 @@ sqlsrv_free_stmt($stmt); ?>
 <?php
 $consulta = 'SELECT id_consulta,asunto,monto_caja from consulta where id_expediente='.$id_exp;
 $stmt = sqlsrv_query( $conn, $consulta );
+$cont = 0;
 
 if( $stmt === false) {
     die( print_r( sqlsrv_errors(), true) );
@@ -69,10 +70,76 @@ while($row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ){
     echo "<td>".$row['asunto']."</td>";
     echo "<td>".$row['monto_caja']."</td>";
     echo   "</tr>";
+    $cont = $cont+$row['monto_caja'];
 }
+
 sqlsrv_free_stmt($stmt); 
 ?>
+
+    <tr width="1000px"><th>Total: <?= $cont ?></th></tr>
     </table>
+    
+    <h2>Ordenes de laboratorio</h2>
+    <table border="1" width="auto">
+        <tr> 
+      <td><strong>ID Consulta</strong></td>
+      <td><strong>Nombre Examen</strong></td>
+       </tr>
+<?php
+$consulta = '
+select  c.id_consulta,o.nombre_examen from expediente e 
+inner join consulta c ON e.id_expediente = c.id_expediente
+inner join orden_lab o ON o.id_consulta = c.id_consulta 
+where e.id_expediente ='.$id_exp;
+$stmt = sqlsrv_query( $conn, $consulta );
+
+if( $stmt === false) {
+    die( print_r( sqlsrv_errors(), true) );
+}
+
+while($row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ){
+    echo "<tr>";
+    echo   "<td>".$row['id_consulta']."</td>";
+    echo "<td>".$row['nombre_examen']."</td>";
+    echo   "</tr>";
+}
+
+sqlsrv_free_stmt($stmt); 
+?>
+
+    </table>
+    
+    <h2>Diagnostico</h2>
+    <table border="1" width="auto">
+        <tr> 
+      <td><strong>ID Consulta</strong></td>
+      <td><strong>Diagnostico</strong></td>
+       </tr>
+<?php
+$consulta = 'select  c.id_consulta,d.id_cie from expediente e 
+    inner join consulta c ON e.id_expediente = c.id_expediente
+    inner join diagnostico d ON d.id_consulta = c.id_consulta 
+    where e.id_expediente ='.$id_exp;
+$stmt = sqlsrv_query( $conn, $consulta );
+
+if( $stmt === false) {
+    die( print_r( sqlsrv_errors(), true) );
+}
+
+while($row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ){
+    echo "<tr>";
+    echo   "<td>".$row['id_consulta']."</td>";
+    echo "<td>".$row['id_cie']."</td>";
+    echo   "</tr>";
+}
+
+sqlsrv_free_stmt($stmt); 
+?>
+
+    </table>
+
+
+
 
     </body>
 </html>
