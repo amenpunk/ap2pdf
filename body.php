@@ -2,7 +2,7 @@
 
 <?php
 $serverName = "localhost";
-$connectionInfo = array( "Database"=>"prueba", "UID"=>"sa", "PWD"=>"Naruto10");
+$connectionInfo = array( "Database"=>"clinica", "UID"=>"sa", "PWD"=>"Naruto10");
 $conn = sqlsrv_connect( $serverName, $connectionInfo );
 ?>
 
@@ -16,6 +16,7 @@ $conn = sqlsrv_connect( $serverName, $connectionInfo );
         color:white;
         height:100%;
      }
+
     .fuerte{
         background:#1e1e1e;
         color:white;

@@ -14,7 +14,7 @@
   </head>
     <?php
     $serverName = "localhost";
-    $connectionInfo = array( "Database"=>"prueba", "UID"=>"sa", "PWD"=>"Naruto10");
+    $connectionInfo = array( "Database"=>"clinica", "UID"=>"sa", "PWD"=>"Naruto10");
     $conn = sqlsrv_connect( $serverName, $connectionInfo );
     ?>
   <body>
