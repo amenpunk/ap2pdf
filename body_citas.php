@@ -42,10 +42,10 @@ $conn = sqlsrv_connect( $serverName, $connectionInfo );
       $inicial = $_GET['cita_inicial'];
       $final = $_GET['cita_final'];
       $sql_dos = "
-select fecha_inicio,estado,primer_nombre,segundo_nombre,primer_apellido,segundo_apellido from cita c inner join paciente p
-ON c.id_paciente = p.id_paciente
-where fecha_inicio BETWEEN '$inicial' and '$final'";
-
+      select fecha_inicio,estado,primer_nombre,segundo_nombre,primer_apellido,segundo_apellido from cita c inner join paciente p
+      ON c.id_paciente = p.id_paciente
+      where fecha_inicio BETWEEN '$inicial' and '$final'";
+      
       $stmt_dos = sqlsrv_query( $conn, $sql_dos );
     ?>
 
@@ -99,9 +99,5 @@ where fecha_inicio BETWEEN '$inicial' and '$final'";
         sqlsrv_free_stmt($stmt); 
         ?>
     </table>
-
-
-
-
   </body>
 </html>
