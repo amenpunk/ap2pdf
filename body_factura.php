@@ -1,10 +1,9 @@
 
 <!DOCTYPE html>
 <?php
-$serverName = "localhost";
-$connectionInfo = array( "Database"=>"clinica", "UID"=>"sa", "PWD"=>"Naruto10");
-$conn = sqlsrv_connect( $serverName, $connectionInfo );
+    include('conexion.php');
 ?>
+
 
 <html>
   <head>

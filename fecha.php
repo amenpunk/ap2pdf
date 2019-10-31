@@ -2,21 +2,50 @@
 <html>
   <head>
     <style type="text/css">
-    .imga{
-         background-color:#1e1e1e; 
-       }
+    #titulo{
+        background:#1e1e1e;
+        padding:10px; color:white;
+        height:100%;
+     }
+
     .fuerte{
         background:#1e1e1e;
         color:white;
     }
 
+     #titulo{
+        background:#1e1e1e;
+        padding:10px;
+        color:white;
+        height:100%;
+     }
+
+    .fuerte{
+        background:#1e1e1e;
+        color:white;
+    }
+    #space{
+       height:50px;
+    }
+    table,th,td,li{
+      padding:10px;
+      text-align:center;
+    }
+
+    #der{
+      padding-left:645px;
+      background:#1e1e1e;
+      padding-top:10px;
+      padding-bottom:10px;
+      color:white;
+    }
+ 
     </style>
   </head>
-    <?php
-    $serverName = "localhost";
-    $connectionInfo = array( "Database"=>"clinica", "UID"=>"sa", "PWD"=>"Naruto10");
-    $conn = sqlsrv_connect( $serverName, $connectionInfo );
-    ?>
+ <?php
+    include('conexion.php');
+?>
+
   <body>
     <h1> Reportes de Ganacias </h1>
     <?php
@@ -37,10 +66,10 @@
     ?>
     <table border=1>
         <tr class="fuerte">
-          <td><strong>ID Consulta</strong></td>
-          <td><strong>Fecha</strong></td>
-          <td><strong>Asunto</strong></td>
-          <td><strong>Precio</strong></td>
+          <td width="50"><strong>ID Consulta</strong></td>
+          <td width="100"><strong>Fecha</strong></td>
+          <td width="300"><strong>Asunto</strong></td>
+          <td width="75"><strong>Precio</strong></td>
           </tr>
         <?php
         $cont = 0;

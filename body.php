@@ -1,9 +1,6 @@
-<!DOCTYPE html>
 
 <?php
-$serverName = "localhost";
-$connectionInfo = array( "Database"=>"clinica", "UID"=>"sa", "PWD"=>"Naruto10");
-$conn = sqlsrv_connect( $serverName, $connectionInfo );
+    include('conexion.php');
 ?>
 
 <html>
@@ -21,7 +18,21 @@ $conn = sqlsrv_connect( $serverName, $connectionInfo );
         background:#1e1e1e;
         color:white;
     }
+    #space{
+       height:50px;
+    }
+    table,th,td,li{
+      padding:5px;
+      text-align:center;
+    }
 
+    #der{
+      padding-left:645px;
+      background:#1e1e1e;
+      padding-top:10px;
+      padding-bottom:10px;
+      color:white;
+    }
 
     </style>  
   </head>
@@ -182,7 +193,7 @@ sqlsrv_free_stmt($stmt);
     <h2>Signos Vitales</h2>
     <table border="1" width="auto">
         <tr class="fuerte">  
-      <td class="fuerte"><strong>ID Consulta</strong></td>
+     <!-- <td class="fuerte"><strong>ID Consulta</strong></td> -->
       <td class="fuerte"><strong>Estatura</strong></td>
       <td class="fuerte"><strong>Peso</strong></td>
       <td class="fuerte"><strong>Temperatura</strong></td>
@@ -205,7 +216,7 @@ if( $stmt === false) {
 
 while($row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ){
     echo "<tr>";
-    echo   "<td>".$row['id_consulta']."</td>";
+    //echo   "<td>".$row['id_consulta']."</td>";
     echo   "<td>".$row['estatura']."</td>";
     echo   "<td>".$row['peso']."</td>";
     echo   "<td>".$row['temp']."</td>";

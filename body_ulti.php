@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <?php
-$serverName = "localhost";
-$connectionInfo = array( "Database"=>"clinica", "UID"=>"sa", "PWD"=>"Naruto10");
-$conn = sqlsrv_connect( $serverName, $connectionInfo );
+    include('conexion.php');
 ?>
-
 <html>
   <head>
    <style type="text/css">  
@@ -19,6 +16,35 @@ $conn = sqlsrv_connect( $serverName, $connectionInfo );
         background:#1e1e1e;
         color:white;
     }
+
+     #titulo{
+        background:#1e1e1e;
+        padding:10px;
+        color:white;
+        height:100%;
+     }
+
+    .fuerte{
+        background:#1e1e1e;
+        color:white;
+    }
+    #space{
+       height:50px;
+    }
+    table,th,td,li{
+      padding:10px;
+      text-align:center;
+    }
+
+    #der{
+      padding-left:645px;
+      background:#1e1e1e;
+      padding-top:10px;
+      padding-bottom:10px;
+      color:white;
+    }
+ 
+
     </style>  
   </head>
 
@@ -44,10 +70,10 @@ $conn = sqlsrv_connect( $serverName, $connectionInfo );
     ?>
     <table border=1>
         <tr class="fuerte">
-          <td><strong>Expediente</strong></td>
-          <td><strong>Nombre</strong></td>
-          <td><strong>Asunto</strong></td>
-          <td><strong>Fecha</strong></td>
+          <td width="50"><strong>Expediente</strong></td>
+          <td width="150"><strong>Nombre</strong></td>
+          <td width="150"><strong>Asunto</strong></td>
+          <td width="50"><strong>Fecha</strong></td>
           </tr>
         <?php
         while($row = sqlsrv_fetch_array( $stmt_dos, SQLSRV_FETCH_ASSOC) ){
